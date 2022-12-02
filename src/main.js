@@ -1,9 +1,14 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 import { createStore } from 'vuex'
+import Axios from "axios";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "font-awesome/css/font-awesome.min.css"
+
+const baseUrl = "http://localhost:3500";
+const productsUrl = `${baseUrl}/products`;
+const categoriesUrl = `${baseUrl}/categories`;
 
 const testData = [];
 
@@ -17,8 +22,9 @@ for (let i = 1; i <= 10; i++) {
 const store = createStore({
     state() {
         return {
-            products: testData,
-            productsTotal: testData.length,
+            products: [],
+            categoriesData: [],
+            productsTotal: 0,
             currentPage: 1,
             pageSize: 4,
             currentCategory: "All"
@@ -35,8 +41,7 @@ const store = createStore({
         },
         pageCount: (state, getters) =>
             Math.ceil(getters.productsFilteredByCategory.length / state.pageSize),
-        categories: state => ["All",
-            ...new Set(state.products.map(p => p.category).sort())]
+        categories: state => ["All", ...state.categoriesData]
     },
     mutations: {
         setCurrentPage(state, page) {
@@ -49,6 +54,18 @@ const store = createStore({
         setCurrentCategory(state, category) {
             state.currentCategory = category;
             state.currentPage = 1;
+        },
+        setData(state, data) {
+            state.products = data.pdata;
+            state.productsTotal = data.pdata.length;
+            state.categoriesData = data.cdata.sort();
+        }
+    },
+    actions: {
+        async getData(context) {
+            let pdata = (await Axios.get(productsUrl)).data;
+            let cdata = (await Axios.get(categoriesUrl)).data;
+            context.commit("setData", { pdata, cdata });
         }
     }
 })
