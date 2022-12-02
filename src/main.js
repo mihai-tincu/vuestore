@@ -1,16 +1,7 @@
-import Vue from 'vue'
+import { createApp } from 'vue'
 import App from './App.vue'
-
-Vue.config.productionTip = false
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "font-awesome/css/font-awesome.min.css"
 
-import store from "./store";
-
-//createApp(App).mount('#app')
-
-new Vue({
-    render: h => h(App),
-    store
-}).$mount('#app')
+createApp(App).mount('#app')
