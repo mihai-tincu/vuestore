@@ -15,20 +15,36 @@ for (let i = 1; i <= 10; i++) {
 }
 
 const store = createStore({
-    state () {
-      return {
-        products: testData
-      }
+    state() {
+        return {
+            products: testData,
+            productsTotal: testData.length,
+            currentPage: 1,
+            pageSize: 4
+        }
+    },
+    getters: {
+        processedProducts: state => {
+            let index = (state.currentPage - 1) * state.pageSize;
+            return state.products.slice(index, index + state.pageSize);
+        },
+        pageCount: state => Math.ceil(state.productsTotal / state.pageSize)
     },
     mutations: {
-      increment (state) {
-        state.count++
-      }
+        setCurrentPage(state, page) {
+            state.currentPage = page;
+        },
+        setPageSize(state, size) {
+            state.pageSize = size;
+            state.currentPage = 1;
+        }
     }
-  })
+})
 
 const app = createApp(App)
 
 app.use(store)
 
 app.mount('#app')
+
+
