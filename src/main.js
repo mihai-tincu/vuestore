@@ -5,8 +5,6 @@ import { createStore } from 'vuex'
 import "bootstrap/dist/css/bootstrap.min.css";
 import "font-awesome/css/font-awesome.min.css"
 
-//import store from './store';
-
 const testData = [];
 
 for (let i = 1; i <= 10; i++) {
@@ -32,6 +30,5 @@ const store = createStore({
 const app = createApp(App)
 
 app.use(store)
-//app.use(store)
 
 app.mount('#app')
