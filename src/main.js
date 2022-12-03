@@ -6,6 +6,7 @@ import Axios from "axios";
 import VueStore from "./components/VueStore";
 import ShoppingCart from "./components/ShoppingCart";
 import { createRouter, createWebHistory } from 'vue-router'
+import CartModule from "./store/cart";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "font-awesome/css/font-awesome.min.css"
@@ -25,6 +26,7 @@ for (let i = 1; i <= 10; i++) {
 
 const store = createStore({
     strict: true,
+    modules: { cart: CartModule },
     state() {
         return {
             products: [],
