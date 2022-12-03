@@ -3,7 +3,6 @@ import App from './App.vue'
 import { createStore } from 'vuex'
 import Axios from "axios";
 import { createRouter, createWebHistory } from 'vue-router'
-import Vuelidate from "vuelidate";
 //import store from "./store"
 
 import VueStore from "./components/VueStore";
@@ -99,7 +98,6 @@ const app = createApp(App)
 
 app.use(store)
 app.use(router)
-app.use(Vuelidate);
 
 app.mount('#app')
 
