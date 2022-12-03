@@ -2,6 +2,10 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import { createStore } from 'vuex'
 import Axios from "axios";
+//import store from "./store"
+import VueStore from "./components/VueStore";
+import ShoppingCart from "./components/ShoppingCart";
+import { createRouter, createWebHistory } from 'vue-router'
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "font-awesome/css/font-awesome.min.css"
@@ -20,6 +24,7 @@ for (let i = 1; i <= 10; i++) {
 }
 
 const store = createStore({
+    strict: true,
     state() {
         return {
             products: [],
@@ -70,9 +75,21 @@ const store = createStore({
     }
 })
 
+const routes = [
+    { path: "/", component: VueStore },
+    { path: "/cart", component: ShoppingCart },
+    { path: "/:catchAll(.*)", redirect: "/" }
+]
+
+const router = createRouter({
+    history: createWebHistory(),
+    routes: routes
+})
+
 const app = createApp(App)
 
 app.use(store)
+app.use(router)
 
 app.mount('#app')
 

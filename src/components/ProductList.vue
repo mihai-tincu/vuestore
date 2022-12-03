@@ -12,29 +12,34 @@
         <page-controls />
     </div>
 </template>
+
 <script>
-import { mapState } from "vuex";
-import { mapGetters} from "vuex";
-import PageControls from "./PageControls";
+    import { mapState } from "vuex";
+    import { mapGetters } from "vuex";
+    import PageControls from "./PageControls";
 
-const formatter = new Intl.NumberFormat('en-US', {style: 'currency', currency: 'USD'})
+    const formatter = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' })
 
-export default {
-    components: { PageControls },
-    computed: {
-        ...mapState(["products"]),
-        ...mapGetters({ products: "processedProducts" })
-    },
-    methods: {
-        formatCurrency(value) {
-            return formatter.format(value)
+    export default {
+        components: { PageControls },
+        computed: {
+            ...mapState(["products"]),
+            ...mapGetters({ products: "processedProducts" })
+        },
+        methods: {
+            formatCurrency(value) {
+                return formatter.format(value)
+            }
         }
     }
-}
 </script>
 
 <style>
-.badge-color {
-    background-color: #007bff;
-}
+    .badge-color {
+        background-color: #007bff;
+    }
+
+    .float-right {
+        float: right;
+    }
 </style>
