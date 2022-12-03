@@ -2,11 +2,16 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import { createStore } from 'vuex'
 import Axios from "axios";
+import { createRouter, createWebHistory } from 'vue-router'
+import Vuelidate from "vuelidate";
 //import store from "./store"
+
 import VueStore from "./components/VueStore";
 import ShoppingCart from "./components/ShoppingCart";
-import { createRouter, createWebHistory } from 'vue-router'
 import CartModule from "./store/cart";
+import OrdersModule from "./store/orders";
+import OrderCheckout from "./components/OrderCheckout";
+import OrderThanks from "./components/OrderThanks";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "font-awesome/css/font-awesome.min.css"
@@ -26,7 +31,7 @@ for (let i = 1; i <= 10; i++) {
 
 const store = createStore({
     strict: true,
-    modules: { cart: CartModule },
+    modules: { cart: CartModule, orders: OrdersModule },
     state() {
         return {
             products: [],
@@ -80,6 +85,8 @@ const store = createStore({
 const routes = [
     { path: "/", component: VueStore },
     { path: "/cart", component: ShoppingCart },
+    { path: "/checkout", component: OrderCheckout },
+    { path: "/thanks/:id", component: OrderThanks },
     { path: "/:catchAll(.*)", redirect: "/" }
 ]
 
@@ -92,6 +99,7 @@ const app = createApp(App)
 
 app.use(store)
 app.use(router)
+app.use(Vuelidate);
 
 app.mount('#app')
 
