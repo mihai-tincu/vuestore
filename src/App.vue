@@ -14,10 +14,16 @@ export default {
   //  VueStore
   //},
   methods: {
-    ...mapActions(["getData"])
+      ...mapActions(
+          {
+              getData: "getData",
+              initializeCart: "cart/initializeCart"
+          }
+      )
   },
   created() {
-    this.getData();
+      this.getData();
+      this.initializeCart(this.$store);
   }
 }
 </script>
